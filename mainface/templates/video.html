@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block title %}Upload Video | ClassLog{% endblock %}
+
+{% block content %}
+
+<!-- <p>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+{% endwith %} -->
+<!-- </p> -->
+<div class="container my-container mx-auto rounded"> 
+    <div class="row my-row-head">
+        <div class="col-md-8 my-col rounded-lg">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form method="POST" action="/" enctype="multipart/form-data">
+                <label for="file"><h3>Upload A Video</h3></label>
+                <br>
+                <input type="file" name="file" autocomplete="off" required>
+                <br></br>
+                <button type="submit" class="btn btn-custom" >Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row my-row">
+        {% if filename %}
+        <div class="col-sm my-col rounded-lg">
+
+                <!-- <img src="{{ url_for('display_image', filename=filename) }}"> -->
+                <video controls>
+                    <source src={{ url_for("display_image" , filename=filename) }} type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                <br></br>
+                <!-- <p>People in this photo: {% for face in faces %}{{face}}, {% endfor %}</p> -->
+                
+        </div>
+        {% endif %}
+        {% if filename %}
+            <div class="col-sm my-col rounded-lg">
+                
+
+                    <!-- <img src="{{ url_for('display_image', filename=filename) }}"> -->
+                    <p><h4>People in this video: </h4><br>{% for face in faces_wo %}<li>{{face}}</li>{% endfor %}</p>
+                    <br>
+                    <p>There are {{tot_students}} students from CS-A 19-23 batch in this video.</p>
+                
+            </div>
+        {% endif %}
+    </div>
+    {% if filename %}
+        <div class="row my-row-head">
+            <div class="col-md-10 my-col rounded-lg">
+                
+                <h4>Attendance for CS-A Batch 19-23: </h4>
+                <br>
+                <table class="table">
+                    <thead class="btn-custom">
+                    <tr>
+                        <th scope="col">Roll No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Attendance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for attendance, student in zip(attendance, students) %}
+                            <tr>
+                                <th scope="row">{{loop.index0 + 1}}</th>
+                                <td>{{student}}</td>
+                                <td>{{attendance}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

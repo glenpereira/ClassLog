@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no", >
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/mainface/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/mainface/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/mainface/static/favicon-16x16.png">
+    <link rel="manifest" href="/mainface/static/site.webmanifest">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico')}}">
+
+    <style>
+        html body{
+            /* font-family: 'Roboto Slab', serif; */
+            font-family: 'Rubik', sans-serif;
+            /* font-family: 'Oxygen', sans-serif; */
+            background-color: #393e46;
+        }
+
+        .my-container {
+            margin: 1rem;
+            /* border: 1px solid red; */
+            padding: 2%;
+            max-width: 1200px;
+            overflow: hidden;
+            /* font-family: 'Roboto Slab', serif; */
+            /* font-family: 'Oxygen', sans-serif; */
+            font-family: 'Rubik', sans-serif;
+            background-color: #00adb5;
+            font-size: medium;
+        }
+
+        video {
+            width: 100%;
+            object-fit: contain;
+        }
+
+        img {
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .my-row-head {
+            /* border: 1px solid green; */
+            justify-content: center;
+            /* margin: 5%; */
+            
+        }
+        .my-col {
+            margin: 1rem;
+            /* border: 1px dotted blue; */
+            padding: 1rem;
+            justify-content: center;
+            background-color: #eeeeee;
+        }
+        .navbar-custom {
+            background-color: #222831;
+        }
+
+        .btn-custom {
+            background-color: #393e46;
+            color: #eee;
+
+        }
+
+        .profile_pic {
+            width: 100px;
+            height: 100px;
+            -webkit-border-radius: 100px;
+            -webkit-background-clip: padding-box;
+            -moz-border-radius: 100px;
+            -moz-background-clip: padding-box;
+            border-radius: 100px;
+            background-clip: padding-box;
+            margin: 7px 0 0 5px;
+            /* float: left; */
+            background-size: cover;
+            /* background-position: center center; */
+        }
+
+        .navbar-brand {
+            width: 50px;
+            font-family: 'Varela Round', sans-serif;
+            text-align: center;
+        }
+
+        .navbar-brand img {
+            height: 30px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-custom navbar-dark">    
+        <a class="navbar-brand" href="{{url_for('index')}}">
+          <!-- <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy"> -->
+            <img src="/static/20200803_192222.svg" alt="logobook">ClassLog
+        </a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ml-auto">
+                
+                <li>
+                    <a href="{{url_for('about')}}" class="nav-link">About</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{{url_for('index')}}" class="nav-link">Search from Photo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url_for('video')}}" class="nav-link">Search from Video</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('account')}}" class="nav-link">Account</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('logout')}}" class="nav-link">Logout</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{url_for('register')}}" class="nav-link">Register</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('login')}}" class="nav-link">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+</html>
