@@ -65,7 +65,11 @@
                             <tr>
                                 <th scope="row">{{loop.index0 + 1}}</th>
                                 <td>{{student}}</td>
-                                <td>{{attendance}}</td>
+                                {% if attendance == "Present" %}
+                                    <td class="align-middle text-success">{{attendance}}</td>
+                                {% else %}
+                                    <td class="align-middle text-danger">{{attendance}}</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>
